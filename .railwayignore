@@ -1,0 +1,16 @@
+frontend/
+.git/
+.venv/
+venv/
+env/
+assets/
+docs/
+submission/
+*.apk
+*.log
+
+# Runtime data — the volume holds these; deploy/seed populates it on first boot
+backend/uploads/
+backend/*.db
+ML/pricing/chroma_db/
+ML/pricing/data/

@@ -1,0 +1,141 @@
+"""
+HunarSetu FastAPI Application Entrypoint.
+
+AI-Driven Market Linkage & Smart Cataloging Backend for Marginalized Artisans.
+"""
+
+import sys
+import warnings
+from pathlib import Path
+from contextlib import asynccontextmanager
+
+# Silence upstream 3rd-party vendor deprecations on Python 3.14+
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="google.genai")
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="chromadb")
+
+# Fix Windows console encoding for emoji output
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
+# Ensure project root is in sys.path when running directly
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+
+from backend.config import get_settings, ensure_upload_dir
+from backend.bootstrap import seed_runtime_data
+
+# Must run before the routers are imported: backend/routers/pricing.py builds a
+# PricingService at module scope, which constructs a VectorStore and creates an
+# empty ChromaDB. Seeding after that point would find the directory already
+# present and skip the vectors.
+seed_runtime_data()
+
+from backend.database import init_db  # noqa: E402
+from backend.routers import (  # noqa: E402
+    health_router,
+    pricing_router,
+    products_router,
+    catalog_router,
+    auth_router,
+    voice_router,
+    social_router,
+    chat_router,
+)
+
+settings = get_settings()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application startup and shutdown event lifecycle."""
+    # 1. Ensure upload directory exists
+    ensure_upload_dir()
+    
+    # 2. Initialize database tables (artisans + products)
+    init_db()
+
+    # 3. Pre-warm rembg ONNX session asynchronously so first request has 0s model download penalty
+    def _warmup_models():
+        try:
+            from ML.image_pipeline.processors.background_removal import get_rembg_session
+            get_rembg_session()
+        except Exception:
+            pass
+
+    import threading
+    threading.Thread(target=_warmup_models, daemon=True).start()
+
+    print("\n" + "=" * 60)
+    print(f"  ✨ {settings.app_name} v{settings.app_version} Started")
+    print(f"  📖 Swagger UI Docs: http://localhost:{settings.port}/docs")
+    print(f"  🔍 Health Status:   http://localhost:{settings.port}/api/v1/health")
+    print(f"  🎙️ Voice Pipeline:  http://localhost:{settings.port}/api/v1/voice/process")
+    print(f"  💰 Pricing Endpoint: http://localhost:{settings.port}/api/v1/pricing/suggest")
+    print(f"  📦 Products API:    http://localhost:{settings.port}/api/v1/products")
+    print(f"  📱 Social Helper:   http://localhost:{settings.port}/api/v1/social-drafts/generate")
+    print("=" * 60 + "\n")
+
+    yield
+
+
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.app_version,
+    description=settings.app_description,
+    lifespan=lifespan,
+    docs_url="/docs",
+    redoc_url="/redoc",
+)
+
+# ── CORS Middleware (Permissive for Flutter Web & Mobile) ────────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_origins,
+    allow_credentials=settings.cors_allow_credentials,
+    allow_methods=settings.cors_allow_methods,
+    allow_headers=settings.cors_allow_headers,
+)
+
+# ── Mount Uploaded Static Files ──────────────────────────────────────────────
+upload_path = ensure_upload_dir()
+app.mount(settings.static_url_prefix, StaticFiles(directory=str(upload_path)), name="uploads")
+
+# ── Register Routers ─────────────────────────────────────────────────────────
+app.include_router(health_router)
+app.include_router(voice_router)
+app.include_router(pricing_router)
+app.include_router(products_router)
+app.include_router(catalog_router)
+app.include_router(auth_router)
+app.include_router(social_router)
+app.include_router(chat_router)
+
+
+@app.get("/", tags=["Root"])
+async def root():
+    """Welcome index endpoint."""
+    return {
+        "message": "Welcome to HunarSetu API Gateway",
+        "version": settings.app_version,
+        "docs": "/docs",
+        "health": "/api/v1/health",
+        "voice_pipeline": "/api/v1/voice/process",
+        "pricing_status": "/api/v1/pricing/status",
+        "products": "/api/v1/products",
+    }
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "backend.main:app",
+        host="127.0.0.1",
+        port=settings.port,
+        reload=True,
+    )
