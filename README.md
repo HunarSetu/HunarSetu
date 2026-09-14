@@ -189,33 +189,8 @@ HunarSetu/
 | App screenshots & visual walkthrough | [`assets/screenshots/`](assets/screenshots/) |
 | Unified Python dependencies | [`requirements.txt`](requirements.txt) |
 
----
 
-## 8. Final Presentation
-
-Access the official Smart India Hackathon presentation deck and dossier:
-- **Presentation Slide Deck (PDF):** [`submission/PRESENTATION.pdf`](submission/PRESENTATION.pdf)
-- **Google Drive Link Of Presentation:** [`google drive link `](https://drive.google.com/file/d/1g0Bg0w2IjVS-Pwto8tREn7CM8BSsauXp/view?usp=sharing)
-
----
-
-## 9. Demo Video
-
-A video walkthrough demonstrating the working prototype across voice cataloging, studio image processing, fair price calculation, and offline sync:
-- **Demo Video Google Drive Link:** [`Demo video link`](https://drive.google.com/drive/folders/1en0R4M21m5d_nWMa_3JCC-h_3KorvcZA?usp=drive_link&authuser=1)
-
----
-
-## 10. Screenshots / Prototype Photos
-
-Visual demonstration of the mobile app workflows:
-- **Screenshots Directory:** [`assets/screenshots/`](assets/screenshots/)
-- **Cloud Screenshot Gallery (Google Drive):** [Open High-Resolution Screenshots](https://drive.google.com/drive/u/0/folders/1-xWkvbRUBBh8lHN0tcv4wrhii_e2MibU)
-
-
----
-
-## 11. Installation
+## 8. Installation
 
 ### Prerequisites
 - Python 3.11+
@@ -250,7 +225,7 @@ flutter pub get
 
 ---
 
-## 12. Run
+## 9. Run
 
 ### Start Backend API Server
 From the project root:
@@ -290,24 +265,7 @@ cd frontend
 flutter test
 ```
 
----
-
-## 13. Team Details
-
-HunarSetu is built by a 6-person multidisciplinary engineering team for **Smart India Hackathon 2026 (PS-90)**:
-
-| Member Name | Role & Core Responsibilities | GitHub Profile |
-|---|---|---|
-| **Kanishka Pandey** | System Integration, FastAPI Backend, API Architecture | [@kan9667](https://github.com/kan9667) |
-| **Aadi Jain** | Pricing Pipeline, Cost Floor Engine & Backend Services | [@DeltaData0](https://github.com/DeltaData0) |
-| **Aanya Varshney** | Flutter Frontend UI & Artisan Experience Design | [@aanyavarshneyav](https://github.com/aanyavarshneyav) |
-| **Rudraksh Saini** | Offline Sync Engine (Drift/Hive/WorkManager) | [@Rudrakssh](https://github.com/Rudrakssh) |
-| **Dhruv Makkar** | Computer Vision & 10-Stage Studio Image Pipeline | [@dhruvsded1](https://github.com/dhruvsded1) |
-| **Triman Singh Chadha** | Speech-to-Text Pipeline & Regional Craft Glossary | [@Triman01](https://github.com/Triman01) |
-
----
-
-## 14. Future Scope
+## 10. Future Scope
 
 1. **ONDC Direct Protocol Integration:** Native Beckn protocol adapters allowing artisans to broadcast catalog inventory directly to ONDC buyer apps without platform commissions.
 2. **Bhashini Regional Dialect Expansion:** Fine-tuned speech-to-text integration for niche tribal dialects (Santhali, Gondi, Warli).
@@ -316,7 +274,7 @@ HunarSetu is built by a 6-person multidisciplinary engineering team for **Smart 
 
 ---
 
-## 15. Conclusion & Impact
+## 11. Conclusion & Impact
 
 HunarSetu transforms how traditional Indian micro-entrepreneurs interface with the digital economy. By collapsing complex e-commerce workflows into **one photograph and one spoken sentence**, eliminating predatory intermediary markups through an **inviolable mathematical cost floor**, and guaranteeing access even in zero-connectivity rural clusters via **offline-first local queues**, HunarSetu ensures that India's rich artisanal heritage translates into sustainable, independent digital livelihoods.
 
