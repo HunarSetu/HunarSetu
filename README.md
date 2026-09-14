@@ -3,7 +3,7 @@
 <!-- <img width="180" height="279" alt="HunarSetu logo" src="https://github.com/user-attachments/assets/f1a4c9de-6260-4b11-9b0b-9082505c8232" /> -->
 
 # HunarSetu
-### हुनरसेतु — "Causeway of Craft"
+### हुनरसेतु — "Skill Bridge Of Crafts"
 
 **Bridging looms to livelihoods: an offline-first emissary that speaks an artisan's own tongue and safeguards the worth of their hands.**
 
