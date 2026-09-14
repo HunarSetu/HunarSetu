@@ -22,8 +22,8 @@ Built for Smart India Hackathon 2026 · Problem Statement PS-26090
 <br/>
 
 [![Download APK](https://img.shields.io/badge/Download-Release%20APK%20(v1.0.0)-2ea44f?style=for-the-badge&logo=android&logoColor=white)](https://github.com/kan9667/hunarsetu/releases/tag/v1.0.0)
-[![Live API](https://img.shields.io/badge/API-Live%20on%20Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://kalasetu-production.up.railway.app/docs)
-[![Health Status](https://img.shields.io/badge/Status-Healthy%20(200)-success?style=for-the-badge)](https://kalasetu-production.up.railway.app/api/v1/health)
+[![Live API](https://img.shields.io/badge/API-Live%20on%20Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://hunarsetu-production.up.railway.app/docs)
+[![Health Status](https://img.shields.io/badge/Status-Healthy%20(200)-success?style=for-the-badge)](https://hunarsetu-production.up.railway.app/api/v1/health)
 
 </div>
 
@@ -33,7 +33,7 @@ Built for Smart India Hackathon 2026 · Problem Statement PS-26090
 > ### ⚡ Live Deployment & Evaluator Quickstart
 > Evaluators can test HunarSetu immediately on Android or inspect the cloud AI backend via Swagger UI:
 > * **Android Release APK**: [Download v1.0.0 APK](https://github.com/kan9667/hunarsetu/releases/tag/v1.0.0) *(Universal, crash-proof build)*
-> * **Live Cloud Backend**: [`https://kalasetu-production.up.railway.app`](https://kalasetu-production.up.railway.app) *(FastAPI + ML Pipelines on Railway)*
+> * **Live Cloud Backend**: [`https://hunarsetu-production.up.railway.app/`](https://hunarsetu-production.up.railway.app/) *(FastAPI + ML Pipelines on Railway)*
 
 ---
 
